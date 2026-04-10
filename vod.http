@@ -1,0 +1,55 @@
+### get all Stores
+
+GET http://localhost:8080/webapi/stores
+
+### get all stores with params
+
+GET http://localhost:8080/webapi/stores?phrase=abc
+custom-header: custom-value
+Cookie: some-cookie=some-value
+
+### get Store by id
+
+GET http://localhost:8080/webapi/stores/1
+Accept: application/xml
+
+### get certain guitar
+
+GET http://localhost:8080/webapi/guitars/1/stores
+Accept: application/json
+
+### create new Store
+POST http://localhost:8080/webapi/stores
+Content-Type: application/json
+Accept-Language: it
+Authorization: Basic dbuser1 dbuser1
+
+{
+  "name" : "Sklepik",
+  "logo" : "https://www.example.pl/img/logo.png"
+}
+
+### get all guitars
+
+GET http://localhost:8080/webapi/guitars
+
+### get guitar by id
+
+GET http://localhost:8080/webapi/guitars/1
+
+### get guitars played in Store
+
+GET http://localhost:8080/webapi/Store/1/guitar
+
+### create new guitar
+
+POST http://localhost:8080/webapi/guitars
+Content-Type: application/json
+Authorization: Basic dbuser1 dbuser2
+
+{
+    "image": "https://www.example.pl/img/logo.png",
+    "modelName": "ESP",
+    "price": 1000.0,
+    "brandId": 3
+}
