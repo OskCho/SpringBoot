@@ -86,6 +86,6 @@ VALUES ('dbuser1', 'dbuser1'),
        ('dbuser3', 'dbuser3');
 
 INSERT INTO role(username, role)
-VALUES ('dbuser1', 'USER_ADMIN'),
-       ('dbuser2', 'BRAND_ADMIN'),
-       ('dbuser3', 'GUITAR_ADMIN');
+VALUES ('dbuser1', 'ROLE_ADMIN'),
+       ('dbuser2', 'ROLE_AUTHOR_ADMIN'),
+       ('dbuser3', 'ROLE_BOOK_ADMIN');

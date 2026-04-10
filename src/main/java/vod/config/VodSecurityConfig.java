@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -12,12 +13,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class VodSecurityConfig {
 
     @Bean
@@ -41,8 +44,8 @@ public class VodSecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails dbuser1 = User
+    public UserDetailsService userDetailsService(DataSource dataSource) {
+        /*UserDetails dbuser1 = User
                 .withUsername("dbuser1")
                 .password("dbuser1")
                 .authorities("ADMIN")
@@ -51,9 +54,15 @@ public class VodSecurityConfig {
                 .withUsername("dbuser2")
                 .password("dbuser2")
                 .authorities("REGULAR")
-                .build();
+                .build();*/
 
-        return new InMemoryUserDetailsManager(dbuser1, dbuser2);
+        JdbcUserDetailsManager detailsManager = new JdbcUserDetailsManager();
+        detailsManager.setDataSource(dataSource);
+        detailsManager.setUsersByUsernameQuery("select username, password, 'true' from user where username=?");
+        detailsManager.setAuthoritiesByUsernameQuery("select username, role from role where username=?");
+        return detailsManager;
+
+//        return new InMemoryUserDetailsManager(dbuser1, dbuser2);
     }
 
 }

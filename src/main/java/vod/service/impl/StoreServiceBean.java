@@ -1,6 +1,7 @@
 package vod.service.impl;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import vod.model.Store;
 import vod.model.Guitar;
@@ -51,6 +52,7 @@ public class StoreServiceBean implements StoreService {
         return storeDao.findByGuitar(g);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Override
     public Store addStore(Store s) {
         log.info("adding Store " + s.getId());

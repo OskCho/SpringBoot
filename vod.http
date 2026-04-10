@@ -22,7 +22,7 @@ Accept: application/json
 POST http://localhost:8080/webapi/stores
 Content-Type: application/json
 Accept-Language: it
-Authorization: Basic dbuser1 dbuser1
+Authorization: Basic dbuser2 dbuser1
 
 {
   "name" : "Sklepik",
